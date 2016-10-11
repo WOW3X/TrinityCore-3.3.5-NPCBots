@@ -898,6 +898,9 @@ class spell_pri_penance : public SpellScriptLoader
 
             bool Load() override
             {
+                //npcbot
+                if (GetCaster() && GetCaster()->GetTypeId() == TYPEID_UNIT && GetCaster()->ToCreature()->IsNPCBot()) return true;
+                //end npcbot
                 return GetCaster()->GetTypeId() == TYPEID_PLAYER;
             }
 
@@ -940,6 +943,10 @@ class spell_pri_penance : public SpellScriptLoader
             SpellCastResult CheckCast()
             {
                 Player* caster = GetCaster()->ToPlayer();
+                //npcbot
+                if (!caster && GetCaster()->GetTypeId() == TYPEID_UNIT && GetCaster()->ToCreature()->IsNPCBot())
+                    caster = (Player*)GetCaster();
+                //end npcbot
                 if (Unit* target = GetExplTargetUnit())
                     if (!caster->IsFriendlyTo(target))
                     {
@@ -1086,6 +1093,9 @@ class spell_pri_renew : public SpellScriptLoader
 
             bool Load() override
             {
+                //npcbot
+                if (GetCaster() && GetCaster()->GetTypeId() == TYPEID_UNIT && GetCaster()->ToCreature()->IsNPCBot()) return true;
+                //end npcbot
                 return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
             }
 

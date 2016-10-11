@@ -18,6 +18,7 @@
 
 #include "Totem.h"
 #include "Group.h"
+#include "ObjectAccessor.h"
 #include "Opcodes.h"
 #include "Player.h"
 #include "SpellHistory.h"
@@ -145,6 +146,13 @@ void Totem::UnSummon(uint32 msTime)
     // any totem unsummon look like as totem kill, req. for proper animation
     if (IsAlive())
         setDeathState(DEAD);
+
+    //npcbot: send SummonedCreatureDespawn()
+    if (GetCreatorGUID().IsCreature())
+        if (Unit* bot = ObjectAccessor::GetCreature(*this, GetCreatorGUID()))
+            if (bot->ToCreature()->GetIAmABot())
+                bot->ToCreature()->OnBotDespawn(this);
+    //end npcbot
 
     AddObjectToRemoveList();
 }
