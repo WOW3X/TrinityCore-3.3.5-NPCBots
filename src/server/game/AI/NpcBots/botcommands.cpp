@@ -407,10 +407,13 @@ public:
         bot->DeleteFromDB();
         bot->AddObjectToRemoveList();
 
-        stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_NPCBOT);
-        //"DELETE FROM characters_npcbot WHERE entry = ?", CONNECTION_ASYNC
+        stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_NPCBOT); //"DELETE FROM characters_npcbot WHERE entry = ?", CONNECTION_ASYNC
         stmt->setUInt32(0, id);
         CharacterDatabase.Execute(stmt);
+
+		//stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_ITEM_INSTANCE_BY_OWNER); // less: delete bot's equipments (aleady trasfered to owner?)
+		//stmt->setUInt32(0, bot->GetSpawnId());
+		//CharacterDatabase.Execute(stmt);
 
         handler->SendSysMessage("Npcbot successfully deleted.");
         return true;
@@ -512,12 +515,19 @@ public:
             m_class == CLASS_SHAMAN || m_class == CLASS_PALADIN)
             roleMask |= BOT_ROLE_HEAL;
 
-        stmt = CharacterDatabase.GetPreparedStatement(CHAR_INS_NPCBOT);
-        //"INSERT INTO characters_npcbot (entry, roles) VALUES (?, ?)", CONNECTION_SYNCH
+		uint32 owner_faction = chr->getFaction(); // SET FACTION TO OWNER'S FACTION
+
+        stmt = CharacterDatabase.GetPreparedStatement(CHAR_INS_NPCBOT); // "INSERT INTO characters_npcbot (entry, roles, faction) VALUES (?, ?, ?)", CONNECTION_SYNCH
         stmt->setUInt32(0, id);
-        stmt->setUInt8(1, roleMask);
+        stmt->setUInt8 (1, roleMask);
+        stmt->setUInt32(2, owner_faction);
         CharacterDatabase.DirectExecute(stmt);
 
+		if (owner_faction != creature->getFaction())
+		{
+			creature->setFaction(owner_faction);
+			const_cast<CreatureTemplate*>(creature->GetCreatureTemplate())->faction = owner_faction;
+		}
         creature->SaveToDB(map->GetId(), (1 << map->GetSpawnMode()), chr->GetPhaseMaskForSpawn());
 
 		uint32 db_guid = creature->GetSpawnId();//GetDBTableGUIDLow();
@@ -525,7 +535,6 @@ public:
         {
             handler->SendSysMessage("Cannot load npcbot from DB!");
             handler->SetSentErrorMessage(true);
-            //return false;
             delete creature;
             return false;
         }

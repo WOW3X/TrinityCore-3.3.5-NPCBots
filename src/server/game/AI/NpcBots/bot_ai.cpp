@@ -4091,11 +4091,13 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
 			me->AddObjectToRemoveList();
 			uint32 id = me->GetEntry();
 
-			PreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_NPCBOT);
-			//"DELETE FROM characters_npcbot WHERE entry = ?", CONNECTION_ASYNC
+			PreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_NPCBOT); //"DELETE FROM characters_npcbot WHERE entry = ?", CONNECTION_ASYNC
 			stmt->setUInt32(0, id);
 			CharacterDatabase.Execute(stmt);
 
+			//stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_ITEM_INSTANCE_BY_OWNER); // less: delete bot's equipments. (aleady trasfered to owner?)
+			//stmt->setUInt32(0, me->GetSpawnId());
+			//CharacterDatabase.Execute(stmt);
 			break;
 		}
         case GOSSIP_SENDER_CLASS: //food/drink (classes: MAGE)
@@ -5880,8 +5882,7 @@ void bot_minion_ai::_updateEquips(uint8 slot, Item* item)
 
             uint8 index = 0;
             stmt = CharacterDatabase.GetPreparedStatement(CHAR_REP_ITEM_INSTANCE);
-            //REPLACE INTO item_instance (itemEntry, owner_guid, creatorGuid, giftCreatorGuid, count, duration, charges, flags, enchantments, randomPropertyId, durability, playedTime, text, guid)
-            //VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC : 0-13
+			//REPLACE INTO item_instance (itemEntry, owner_guid, creatorGuid, giftCreatorGuid, count, duration, charges, flags, enchantments, randomPropertyId, durability, playedTime, text, guid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC);
             stmt->setUInt32(  index, botitem->GetEntry());
 			stmt->setUInt32(++index, botitem->GetOwnerGUID().GetCounter());//GUID_LOPART(botitem->GetOwnerGUID()));
 			stmt->setUInt32(++index, botitem->GetGuidValue(ITEM_FIELD_CREATOR).GetCounter());//GUID_LOPART(botitem->GetUInt64Value(ITEM_FIELD_CREATOR)));

@@ -231,8 +231,8 @@ public:
                 return;
 
             uint32 ASPECT_OF_THE_VIPER = GetSpell(ASPECT_OF_THE_VIPER_1);
-            uint32 ASPECT_OF_THE_PACK = GetSpell(ASPECT_OF_THE_PACK_1);
-            if (!ASPECT_OF_THE_VIPER && !ASPECT_OF_THE_PACK)
+            //uint32 ASPECT_OF_THE_PACK = GetSpell(ASPECT_OF_THE_PACK_1);
+            if (!ASPECT_OF_THE_VIPER)// && !ASPECT_OF_THE_PACK)
                 return;
 
             uint32 needaspect = 0;
@@ -240,8 +240,9 @@ public:
 
             if (ASPECT_OF_THE_VIPER && pct < 25)
                 needaspect = ASPECT_OF_THE_VIPER;
-            else if (ASPECT_OF_THE_PACK && (pct > 70 || !Aspect))
-                needaspect = ASPECT_OF_THE_PACK;
+            /* less: annoying
+			else if (ASPECT_OF_THE_PACK && (pct > 70 || !Aspect))
+                needaspect = ASPECT_OF_THE_PACK;*/
 
             if (!needaspect || (needaspect == Aspect && HasAuraName(me, needaspect)))
             {
@@ -956,7 +957,7 @@ public:
             InitSpellMap(SCARE_BEAST_1);
             InitSpellMap(FEIGN_DEATH_1);
             InitSpellMap(DETERRENCE_1);
-            //InitSpellMap(ASPECT_OF_THE_VIPER_1);
+            InitSpellMap(ASPECT_OF_THE_VIPER_1);
   /*Custom*///ASPECT_OF_THE_PACK                      = ASPECT_OF_THE_VIPER ? ASPECT_OF_THE_PACK_1 : 0;
   /*Custom*/lvl >= 20 ? InitSpellMap(ASPECT_OF_THE_PACK_1, true) : RemoveSpell(ASPECT_OF_THE_PACK_1);
             //InitSpellMap(ASPECT_OF_THE_DRAGONHAWK_1);

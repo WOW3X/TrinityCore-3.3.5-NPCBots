@@ -798,7 +798,7 @@ class bot_minion_ai : public bot_ai
         void InitRoles();
         void InitEquips();
         void InitOwner();
-        void InitFaction();
+        void InitFaction() override;
 
         WorldObject* GetNearbyRezTarget(float dist = 30) const;
         Unit* FindHostileDispelTarget(float dist = 30, bool stealable = false) const;

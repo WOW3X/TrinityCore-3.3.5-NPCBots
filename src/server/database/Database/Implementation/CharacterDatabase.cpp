@@ -632,7 +632,7 @@ void CharacterDatabaseConnection::DoPrepareStatements()
 	PrepareStatement(CHAR_UPD_NPCBOT_EQUIP, "UPDATE characters_npcbot SET equipMhEx = ?, equipOhEx = ?, equipRhEx = ?, "
 		"equipHead = ?, equipShoulders = ?, equipChest = ?, equipWaist = ?, equipLegs = ?, equipFeet = ?, equipWrist = ?, equipHands = ?, equipBack = ?, equipBody = ?, equipFinger1 = ?, equipFinger2 = ?, equipTrinket1 = ?, equipTrinket2 = ?, equipNeck = ? WHERE entry = ?", CONNECTION_ASYNC);
 	PrepareStatement(CHAR_DEL_NPCBOT, "DELETE FROM characters_npcbot WHERE entry = ?", CONNECTION_ASYNC);
-	PrepareStatement(CHAR_INS_NPCBOT, "INSERT INTO characters_npcbot (entry, roles) VALUES (?, ?)", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_INS_NPCBOT, "INSERT INTO characters_npcbot (entry, roles, faction) VALUES (?, ?, ?)", CONNECTION_SYNCH);
 	PrepareStatement(CHAR_UPD_NPCBOT_FACTION, "UPDATE characters_npcbot SET faction = ? WHERE entry = ?", CONNECTION_SYNCH);
 	PrepareStatement(CHAR_SEL_NPCBOT_FACTION, "SELECT faction FROM characters_npcbot WHERE entry = ?", CONNECTION_SYNCH);
 }
