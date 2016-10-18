@@ -47,11 +47,12 @@ public:
             { "delete",     GM_COMMANDS,                        false, &HandleNpcBotDeleteCommand,              ""/*, NULL*/ },
             { "lookup",     GM_COMMANDS,                        false, &HandleNpcBotLookupCommand,              ""/*, NULL*/ },
             { "revive",     GM_COMMANDS,                        false, &HandleNpcBotReviveCommand,              ""/*, NULL*/ },
+			{ "info",       GM_COMMANDS,                        false, &HandleNpcBotInfoCommand,                ""/*, NULL*/ },
             { "cast",       GM_COMMANDS,                        false, &HandleNpcBotCastCustomSpell,            ""/*, NULL*/ },
         };
         static std::vector<ChatCommand> commandTable =
         {
-            { "npcbot",     GM_COMMANDS,                        false, nullptr,                                "", npcbotCommandTable },
+            { "npcbot",     GM_COMMANDS,                        false, nullptr,                                 "", npcbotCommandTable },
         };
         return commandTable;
     }
