@@ -32,6 +32,9 @@ void AddSC_warrior_bot();
 void AddSC_script_bot_commands();
 //end NPCBots
 
+// Auto Learn Spells
+void AddSC_LearnSpellsOnLevelUp();
+
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
 void AddCustomScripts()
@@ -50,4 +53,7 @@ void AddCustomScripts()
 	//AddSC_blademaster_bot();
 	AddSC_script_bot_commands();
 	//end NPCBots
+
+    // Auto Learn Spells
+    AddSC_LearnSpellsOnLevelUp();
 }
