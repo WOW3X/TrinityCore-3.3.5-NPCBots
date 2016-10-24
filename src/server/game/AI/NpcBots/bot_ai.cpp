@@ -130,7 +130,7 @@ bot_ai::bot_ai(Creature* creature) : ScriptedAI(creature)
     pos.m_positionX = 0.f;
     pos.m_positionY = 0.f;
     pos.m_positionZ = 0.f;
-	aftercastTargetGuid.Clear();// = 0;
+    aftercastTargetGuid.Clear();// = 0;
     currentSpell = 0;
 
     //visUpEvent = NULL;
@@ -268,7 +268,7 @@ void bot_ai::ResetBotAI(uint8 resetType)
         //otherwise - will teleport to master
         teleHomeEvent = new TeleportHomeEvent(ToMinionAI());
         events.AddEvent(teleHomeEvent, events.CalculateTime(0)); //make sure event will be deleted
-		teleHomeEvent->ScheduleAbort();// to_Abort = true; //make sure event will not be executed twice
+        teleHomeEvent->ScheduleAbort();// to_Abort = true; //make sure event will not be executed twice
         teleHomeEvent->Execute(0,0);
     }
     else
@@ -3920,15 +3920,14 @@ bool bot_minion_ai::OnGossipHello(Player* player, Creature* creature, uint32 /*o
 
     if (!_enableNpcBots || creature->IsInCombat() || bot_ai::CCed(creature) || creature->GetBotAI()->IsDuringTeleport())
     {
-		
-		//player->CLOSE_GOSSIP_MENU();
-		CloseGossipMenuFor(player);
+        //player->CLOSE_GOSSIP_MENU();
+        CloseGossipMenuFor(player);
         return true;
     }
 
     if (creature->GetBotAI()->IsTempBot()) //Blademaster illusion etc.
     {
-		CloseGossipMenuFor(player);
+        CloseGossipMenuFor(player);
         return true;
     }
 
@@ -3943,7 +3942,7 @@ bool bot_minion_ai::OnGossipHello(Player* player, Creature* creature, uint32 /*o
         (creature->IsFreeBot() || player->GetGUID().GetCounter() != creature->GetBotAI()->GetBotOwnerGuid()))
     {
         //player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, "<Debug>", GOSSIP_SENDER_DEBUG, GOSSIP_ACTION_INFO_DEF + 1);
-		AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Debug>", GOSSIP_SENDER_DEBUG, GOSSIP_ACTION_INFO_DEF + 1);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Debug>", GOSSIP_SENDER_DEBUG, GOSSIP_ACTION_INFO_DEF + 1);
         menus = true;
     }
 
@@ -3984,13 +3983,13 @@ bool bot_minion_ai::OnGossipHello(Player* player, Creature* creature, uint32 /*o
                     GOSSIP_SENDER_HIRE, GOSSIP_ACTION_INFO_DEF + 0, message.str().c_str(), cost, false);
             }
             else
-				AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Will you follow me? (hire)", GOSSIP_SENDER_HIRE, GOSSIP_ACTION_INFO_DEF + reason);
+                AddGossipItemFor(player, GOSSIP_ICON_TAXI, "Will you follow me? (hire)", GOSSIP_SENDER_HIRE, GOSSIP_ACTION_INFO_DEF + reason);
 
             if (creature->GetBotClass() >= BOT_CLASS_EX_START)
-				AddGossipItemFor(player, GOSSIP_ICON_TALK, "<Take a better look on this one>", GOSSIP_SENDER_SCAN, GOSSIP_ACTION_INFO_DEF + 1);
+                AddGossipItemFor(player, GOSSIP_ICON_TALK, "<Take a better look on this one>", GOSSIP_SENDER_SCAN, GOSSIP_ACTION_INFO_DEF + 1);
 
-			//thesawolf - a delete for good measure
-			AddGossipItemFor(player, GOSSIP_ICON_TAXI, "You can go now... (delete)", GOSSIP_SENDER_EARLYDISMISS, GOSSIP_ACTION_INFO_DEF + 1);
+            //thesawolf - a delete for good measure
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "You can go now... (delete)", GOSSIP_SENDER_EARLYDISMISS, GOSSIP_ACTION_INFO_DEF + 1);
 
             menus = true;
         }
@@ -4002,19 +4001,19 @@ bool bot_minion_ai::OnGossipHello(Player* player, Creature* creature, uint32 /*o
 
         if (player == creature->GetBotOwner())
         {
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Manage equipment...", GOSSIP_SENDER_EQUIPMENT, GOSSIP_ACTION_INFO_DEF + 1);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Manage roles...", GOSSIP_SENDER_ROLES, GOSSIP_ACTION_INFO_DEF + 1);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Manage formation...", GOSSIP_SENDER_FORMATION, GOSSIP_ACTION_INFO_DEF + 1);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Use ability...", GOSSIP_SENDER_ABILITIES, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Manage equipment...", GOSSIP_SENDER_EQUIPMENT, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Manage roles...", GOSSIP_SENDER_ROLES, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Manage formation...", GOSSIP_SENDER_FORMATION, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Use ability...", GOSSIP_SENDER_ABILITIES, GOSSIP_ACTION_INFO_DEF + 1);
             if (creature->GetBotClass() >= BOT_CLASS_EX_START)
-				AddGossipItemFor(player, GOSSIP_ICON_TALK, "Abilities status...", GOSSIP_SENDER_SCAN_OWNER, GOSSIP_ACTION_INFO_DEF + 1);
+                AddGossipItemFor(player, GOSSIP_ICON_TALK, "Abilities status...", GOSSIP_SENDER_SCAN_OWNER, GOSSIP_ACTION_INFO_DEF + 1);
 
             if (!gr)
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Create group>", GOSSIP_SENDER_JOIN_GROUP, GOSSIP_ACTION_INFO_DEF + 1);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Create group>", GOSSIP_SENDER_JOIN_GROUP, GOSSIP_ACTION_INFO_DEF + 1);
             else if (!gr->IsMember(creature->GetGUID()))
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Add to group>", GOSSIP_SENDER_JOIN_GROUP, GOSSIP_ACTION_INFO_DEF + 2);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Add to group>", GOSSIP_SENDER_JOIN_GROUP, GOSSIP_ACTION_INFO_DEF + 2);
             else
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Remove from group>", GOSSIP_SENDER_LEAVE_GROUP, GOSSIP_ACTION_INFO_DEF + 1);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Remove from group>", GOSSIP_SENDER_LEAVE_GROUP, GOSSIP_ACTION_INFO_DEF + 1);
 
             menus = true;
         }
@@ -4023,8 +4022,8 @@ bool bot_minion_ai::OnGossipHello(Player* player, Creature* creature, uint32 /*o
             switch (creature->GetBotClass())
             {
                 case BOT_CLASS_MAGE:
-					AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I need food", GOSSIP_SENDER_CLASS, GOSSIP_ACTION_INFO_DEF + 1);
-					AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I need drink", GOSSIP_SENDER_CLASS, GOSSIP_ACTION_INFO_DEF + 2);
+                    AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I need food", GOSSIP_SENDER_CLASS, GOSSIP_ACTION_INFO_DEF + 1);
+                    AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I need drink", GOSSIP_SENDER_CLASS, GOSSIP_ACTION_INFO_DEF + 2);
                     menus = true;
                     break;
                 default:
@@ -4044,7 +4043,7 @@ bool bot_minion_ai::OnGossipHello(Player* player, Creature* creature, uint32 /*o
     }
 
     if (menus)
-		AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Nevermind", 0, GOSSIP_ACTION_INFO_DEF + 1);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Nevermind", 0, GOSSIP_ACTION_INFO_DEF + 1);
 
     player->PlayerTalkClass->SendGossipMenu(gossipTextId, creature->GetGUID());
     return true;
@@ -4081,25 +4080,25 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
         {
             return bot_minion_ai::OnGossipHello(player, creature, 0);
         }
-		case GOSSIP_SENDER_EARLYDISMISS: //thesawolf - early dismissal/delete
-		{
-			me->HandleEmoteCommand(EMOTE_ONESHOT_NONE);
-			me->HandleEmoteCommand(EMOTE_ONESHOT_FLEX);
-			BotSay("We would've been good together...", player);
-			me->CombatStop();
-			me->DeleteFromDB();
-			me->AddObjectToRemoveList();
-			uint32 id = me->GetEntry();
+        case GOSSIP_SENDER_EARLYDISMISS: //thesawolf - early dismissal/delete
+        {
+            me->HandleEmoteCommand(EMOTE_ONESHOT_NONE);
+            me->HandleEmoteCommand(EMOTE_ONESHOT_FLEX);
+            BotSay("We would've been good together...", player);
+            me->CombatStop();
+            me->DeleteFromDB();
+            me->AddObjectToRemoveList();
+            uint32 id = me->GetEntry();
 
-			PreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_NPCBOT); //"DELETE FROM characters_npcbot WHERE entry = ?", CONNECTION_ASYNC
-			stmt->setUInt32(0, id);
-			CharacterDatabase.Execute(stmt);
+            PreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_NPCBOT); //"DELETE FROM characters_npcbot WHERE entry = ?", CONNECTION_ASYNC
+            stmt->setUInt32(0, id);
+            CharacterDatabase.Execute(stmt);
 
-			//stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_ITEM_INSTANCE_BY_OWNER); // less: delete bot's equipments. (aleady trasfered to owner?)
-			//stmt->setUInt32(0, me->GetSpawnId());
-			//CharacterDatabase.Execute(stmt);
-			break;
-		}
+            //stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_ITEM_INSTANCE_BY_OWNER); // less: delete bot's equipments. (aleady trasfered to owner?)
+            //stmt->setUInt32(0, me->GetSpawnId());
+            //CharacterDatabase.Execute(stmt);
+            break;
+        }
         case GOSSIP_SENDER_CLASS: //food/drink (classes: MAGE)
         {
             switch (_botclass)
@@ -4163,41 +4162,41 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
             subMenu = true;
 
             //general
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Show me your inventory", GOSSIP_SENDER_EQUIPMENT_LIST, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Show me your inventory", GOSSIP_SENDER_EQUIPMENT_LIST, GOSSIP_ACTION_INFO_DEF + 1);
 
             //auto-equip
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Auto-equip...", GOSSIP_SENDER_EQUIP_AUTOEQUIP, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Auto-equip...", GOSSIP_SENDER_EQUIP_AUTOEQUIP, GOSSIP_ACTION_INFO_DEF + 1);
 
             //weapons
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Main hand...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_MAINHAND);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Main hand...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_MAINHAND);
             if (_canUseOffHand())
-				AddGossipItemFor(player, GOSSIP_ICON_TALK, "Off-hand...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_OFFHAND);
+                AddGossipItemFor(player, GOSSIP_ICON_TALK, "Off-hand...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_OFFHAND);
             if (_canUseRanged())
-				AddGossipItemFor(player, GOSSIP_ICON_TALK, "Ranged...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_RANGED);
+                AddGossipItemFor(player, GOSSIP_ICON_TALK, "Ranged...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_RANGED);
             else
-				AddGossipItemFor(player, GOSSIP_ICON_TALK, "Relic...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_RANGED);
+                AddGossipItemFor(player, GOSSIP_ICON_TALK, "Relic...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_RANGED);
 
             //armor
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Head...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_HEAD);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Shoulders...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_SHOULDERS);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Chest...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_CHEST);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Waist...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_WAIST);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Legs...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_LEGS);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Feet...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_FEET);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Wrist...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_WRIST);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Hands...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_HANDS);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Back...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_BACK);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Shirt...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_BODY);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Finger1...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_FINGER1);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Finger2...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_FINGER2);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Trinket1...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_TRINKET1);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Trinket2...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_TRINKET2);
-			AddGossipItemFor(player, GOSSIP_ICON_TALK, "Neck...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_NECK);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Head...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_HEAD);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Shoulders...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_SHOULDERS);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Chest...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_CHEST);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Waist...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_WAIST);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Legs...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_LEGS);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Feet...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_FEET);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Wrist...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_WRIST);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Hands...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_HANDS);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Back...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_BACK);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Shirt...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_BODY);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Finger1...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_FINGER1);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Finger2...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_FINGER2);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Trinket1...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_TRINKET1);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Trinket2...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_TRINKET2);
+            AddGossipItemFor(player, GOSSIP_ICON_TALK, "Neck...", GOSSIP_SENDER_EQUIPMENT_SHOW, GOSSIP_ACTION_INFO_DEF + BOT_SLOT_NECK);
 
             //if (player->IsGameMaster())
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Unequip all", GOSSIP_SENDER_UNEQUIP_ALL, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Unequip all", GOSSIP_SENDER_UNEQUIP_ALL, GOSSIP_ACTION_INFO_DEF + 1);
 
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 1);
 
             break;
         }
@@ -4321,28 +4320,28 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
             if (Item* item = _equips[slot])
             {
                 _AddItemLink(player, item, str);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, str.str().c_str(), GOSSIP_SENDER_EQUIPMENT_INFO, action);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, str.str().c_str(), GOSSIP_SENDER_EQUIPMENT_INFO, action);
             }
             else
             {
                 str << "nothing";
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, str.str().c_str(), GOSSIP_SENDER_EQUIPMENT_SHOW, action);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, str.str().c_str(), GOSSIP_SENDER_EQUIPMENT_SHOW, action);
             }
 
             //s2.2.1 add unequip option if have weapon (GMs only)
             if (action - GOSSIP_ACTION_INFO_DEF <= BOT_SLOT_RANGED)
                 //if (player->IsGameMaster())
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Use your old equipment", GOSSIP_SENDER_EQUIP_RESET, action);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Use your old equipment", GOSSIP_SENDER_EQUIP_RESET, action);
 
             //s2.2.2 add unequip option for non-weapons
             if (slot >= BOT_SLOT_RANGED && _equips[slot])
                 //if (player->IsGameMaster())
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Unequip it", GOSSIP_SENDER_UNEQUIP, action);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Unequip it", GOSSIP_SENDER_UNEQUIP, action);
 
             //s2.2.3a: add an empty submenu with info if no items are found
             if (itemList.empty())
             {
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Hm... I have nothing to give you", 0, GOSSIP_ACTION_INFO_DEF + 1);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Hm... I have nothing to give you", 0, GOSSIP_ACTION_INFO_DEF + 1);
             }
             else
             {
@@ -4361,7 +4360,7 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
                         {
                             std::ostringstream name;
                             _AddItemLink(player, item, name);
-							AddGossipItemFor(player, GOSSIP_ICON_CHAT, name.str().c_str(), GOSSIP_SENDER_EQUIP + (slot - 1), GOSSIP_ACTION_INFO_DEF + item->GetGUID().GetCounter());
+                            AddGossipItemFor(player, GOSSIP_ICON_CHAT, name.str().c_str(), GOSSIP_SENDER_EQUIP + (slot - 1), GOSSIP_ACTION_INFO_DEF + item->GetGUID().GetCounter());
                             ++counter;
                             found = true;
                             break;
@@ -4382,7 +4381,7 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
                                 {
                                     std::ostringstream name;
                                     _AddItemLink(player, item, name);
-									AddGossipItemFor(player, GOSSIP_ICON_CHAT, name.str().c_str(), GOSSIP_SENDER_EQUIP + (slot - 1), GOSSIP_ACTION_INFO_DEF + item->GetGUID().GetCounter());
+                                    AddGossipItemFor(player, GOSSIP_ICON_CHAT, name.str().c_str(), GOSSIP_SENDER_EQUIP + (slot - 1), GOSSIP_ACTION_INFO_DEF + item->GetGUID().GetCounter());
                                     ++counter;
                                     found = true;
                                     break;
@@ -4398,8 +4397,8 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
                         continue;
                 }
             }
-
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", GOSSIP_SENDER_EQUIPMENT, GOSSIP_ACTION_INFO_DEF + 2);
+            
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", GOSSIP_SENDER_EQUIPMENT, GOSSIP_ACTION_INFO_DEF + 2);
 
             //TC_LOG_ERROR("entities.player", "OnGossipSelect(bot): added %u item(s) to list of %s (requester: %s)",
             //    counter, me->GetName().c_str(), player->GetName().c_str());
@@ -4584,7 +4583,7 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
 
             if (itemList.empty())
             {
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Hm... I have nothing to give you", 0, GOSSIP_ACTION_INFO_DEF + 1);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Hm... I have nothing to give you", 0, GOSSIP_ACTION_INFO_DEF + 1);
             }
             else
             {
@@ -4607,7 +4606,7 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
 
                             std::ostringstream name;
                             _AddItemLink(player, item, name);
-							AddGossipItemFor(player, GOSSIP_ICON_CHAT, name.str().c_str(), GOSSIP_SENDER_EQUIP_AUTOEQUIP_EQUIP + k, GOSSIP_ACTION_INFO_DEF + item->GetGUID().GetCounter());
+                            AddGossipItemFor(player, GOSSIP_ICON_CHAT, name.str().c_str(), GOSSIP_SENDER_EQUIP_AUTOEQUIP_EQUIP + k, GOSSIP_ACTION_INFO_DEF + item->GetGUID().GetCounter());
                             ++counter;
                             found = true;
                             break;
@@ -4633,7 +4632,7 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
 
                                     std::ostringstream name;
                                     _AddItemLink(player, item, name);
-									AddGossipItemFor(player, GOSSIP_ICON_CHAT, name.str().c_str(), GOSSIP_SENDER_EQUIP_AUTOEQUIP_EQUIP + k, GOSSIP_ACTION_INFO_DEF + item->GetGUID().GetCounter());
+                                    AddGossipItemFor(player, GOSSIP_ICON_CHAT, name.str().c_str(), GOSSIP_SENDER_EQUIP_AUTOEQUIP_EQUIP + k, GOSSIP_ACTION_INFO_DEF + item->GetGUID().GetCounter());
                                     ++counter;
                                     found = true;
                                     break;
@@ -4649,8 +4648,8 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
                         continue;
                 }
             }
-
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", GOSSIP_SENDER_EQUIPMENT, GOSSIP_ACTION_INFO_DEF + 2);
+                        
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", GOSSIP_SENDER_EQUIPMENT, GOSSIP_ACTION_INFO_DEF + 2);
             break;
         }
         case GOSSIP_SENDER_EQUIP_RESET: //equips change s4a: reset equipment
@@ -4737,10 +4736,10 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
                 if (role == BOT_ROLE_HEAL && !CanHeal())
                     continue;
 
-				AddGossipItemFor(player, _onOffIcon(role), GetRoleString(role), GOSSIP_SENDER_ROLES_TOGGLE, GOSSIP_ACTION_INFO_DEF + role);
+                AddGossipItemFor(player, _onOffIcon(role), GetRoleString(role), GOSSIP_SENDER_ROLES_TOGGLE, GOSSIP_ACTION_INFO_DEF + role);
             }
 
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + role + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + role + 1);
 
             break;
         }
@@ -4770,11 +4769,11 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
 
                 std::ostringstream name;
                 _AddSpellLink(player, spellInfo, name);
-				AddGossipItemFor(player, GOSSIP_ICON_TRAINER, name.str().c_str(), GOSSIP_SENDER_ABILITIES_USE, GOSSIP_ACTION_INFO_DEF + basespell);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, name.str().c_str(), GOSSIP_SENDER_ABILITIES_USE, GOSSIP_ACTION_INFO_DEF + basespell);
             }
 
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Update", GOSSIP_SENDER_ABILITIES_USE, GOSSIP_ACTION_INFO_DEF);
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 2);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Update", GOSSIP_SENDER_ABILITIES_USE, GOSSIP_ACTION_INFO_DEF);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 2);
 
             break;
         }
@@ -4913,7 +4912,7 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
             diststr << "Set distance (current: " << uint32(player->GetBotFollowDist()) << ')';
             player->PlayerTalkClass->GetGossipMenu().AddMenuItem(-1, GOSSIP_ICON_CHAT, diststr.str(),
                 GOSSIP_SENDER_FORMATION_DISTANCE, GOSSIP_ACTION_INFO_DEF + 1, "", 0, true);
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 2);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 2);
             break;
         }
         case GOSSIP_SENDER_DEBUG_ACTION:
@@ -5033,16 +5032,16 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
             else
                 ostr << "none";
 
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, ostr.str().c_str(), GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 0);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, ostr.str().c_str(), GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 0);
 
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Reset Owner>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 1);
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Reset Stats>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 2);
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<List Stats>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 3);
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<List Roles>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 4);
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<List Spells>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 5);
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Reload Config>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 6);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Reset Owner>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Reset Stats>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 2);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<List Stats>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 3);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<List Roles>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 4);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<List Spells>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 5);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<Reload Config>", GOSSIP_SENDER_DEBUG_ACTION, GOSSIP_ACTION_INFO_DEF + 6);
 
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 1);
             break;
         }
         case GOSSIP_SENDER_SCAN:
@@ -5060,7 +5059,7 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
             //        break;
             //}
 
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 1);
 
             break;
         }
@@ -5115,17 +5114,17 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
       //              if (me->getLevel() >= 10)
       //              {
       //                  _AddSpellLink(player, sSpellMgr->GetSpellInfo(SPELL_NETHERWALK), abmsg1);
-						//AddGossipItemFor(player, GOSSIP_ICON_CHAT, abmsg1.str().c_str(), GOSSIP_SENDER_SCAN_OWNER_ABILITY, GOSSIP_ACTION_INFO_DEF + SPELL_NETHERWALK);
+      //                  AddGossipItemFor(player, GOSSIP_ICON_CHAT, abmsg1.str().c_str(), GOSSIP_SENDER_SCAN_OWNER_ABILITY, GOSSIP_ACTION_INFO_DEF + SPELL_NETHERWALK);
       //              }
       //              if (me->getLevel() >= 20)
       //              {
       //                  _AddSpellLink(player, sSpellMgr->GetSpellInfo(SPELL_MIRROR_IMAGE_BM), abmsg2);
-						//AddGossipItemFor(player, GOSSIP_ICON_CHAT, abmsg2.str().c_str(), GOSSIP_SENDER_SCAN_OWNER_ABILITY, GOSSIP_ACTION_INFO_DEF + SPELL_MIRROR_IMAGE_BM);
+      //                  AddGossipItemFor(player, GOSSIP_ICON_CHAT, abmsg2.str().c_str(), GOSSIP_SENDER_SCAN_OWNER_ABILITY, GOSSIP_ACTION_INFO_DEF + SPELL_MIRROR_IMAGE_BM);
       //              }
       //              if (me->getLevel() >= 10)
       //              {
       //                  _AddSpellLink(player, sSpellMgr->GetSpellInfo(SPELL_CRITICAL_STRIKE), abmsg3);
-						//AddGossipItemFor(player, GOSSIP_ICON_CHAT, abmsg3.str().c_str(), GOSSIP_SENDER_SCAN_OWNER_ABILITY, GOSSIP_ACTION_INFO_DEF + SPELL_CRITICAL_STRIKE);
+      //                  AddGossipItemFor(player, GOSSIP_ICON_CHAT, abmsg3.str().c_str(), GOSSIP_SENDER_SCAN_OWNER_ABILITY, GOSSIP_ACTION_INFO_DEF + SPELL_CRITICAL_STRIKE);
       //              }
       //              //TODO:
       //              //_AddSpellLink(player, sSpellMgr->GetSpellInfo(SPELL_CRITICAL_STRIKE), abmsg4);
@@ -5135,7 +5134,7 @@ bool bot_minion_ai::OnGossipSelect(Player* player, Creature* creature/* == me*/,
       //              break;
       //      }
 
-			AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "BACK", 1, GOSSIP_ACTION_INFO_DEF + 1);
 
             break;
         }
@@ -5160,7 +5159,7 @@ bool bot_minion_ai::OnGossipSelectCode(Player* player, Creature* creature/* == m
 
     if (!_enableNpcBots || CCed(me) || IsDuringTeleport())
     {
-		CloseGossipMenuFor(player);
+        CloseGossipMenuFor(player);
         return true;
     }
 
@@ -5179,7 +5178,7 @@ bool bot_minion_ai::OnGossipSelectCode(Player* player, Creature* creature/* == m
 
             player->SetBotFollowDist(distance);
 
-			CloseGossipMenuFor(player);
+            CloseGossipMenuFor(player);
             return OnGossipSelect(player, creature, GOSSIP_SENDER_FORMATION, action);
         }
         default:
@@ -5189,7 +5188,7 @@ bool bot_minion_ai::OnGossipSelectCode(Player* player, Creature* creature/* == m
     if (subMenu)
         player->PlayerTalkClass->SendGossipMenu(gossipTextId, me->GetGUID());
     else
-		CloseGossipMenuFor(player);
+        CloseGossipMenuFor(player);
     return true;
 }
 //Summons pet for bot
@@ -5882,10 +5881,10 @@ void bot_minion_ai::_updateEquips(uint8 slot, Item* item)
 
             uint8 index = 0;
             stmt = CharacterDatabase.GetPreparedStatement(CHAR_REP_ITEM_INSTANCE);
-			//REPLACE INTO item_instance (itemEntry, owner_guid, creatorGuid, giftCreatorGuid, count, duration, charges, flags, enchantments, randomPropertyId, durability, playedTime, text, guid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC);
+            //REPLACE INTO item_instance (itemEntry, owner_guid, creatorGuid, giftCreatorGuid, count, duration, charges, flags, enchantments, randomPropertyId, durability, playedTime, text, guid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC);
             stmt->setUInt32(  index, botitem->GetEntry());
-			stmt->setUInt32(++index, botitem->GetOwnerGUID().GetCounter());//GUID_LOPART(botitem->GetOwnerGUID()));
-			stmt->setUInt32(++index, botitem->GetGuidValue(ITEM_FIELD_CREATOR).GetCounter());//GUID_LOPART(botitem->GetUInt64Value(ITEM_FIELD_CREATOR)));
+            stmt->setUInt32(++index, botitem->GetOwnerGUID().GetCounter());//GUID_LOPART(botitem->GetOwnerGUID()));
+            stmt->setUInt32(++index, botitem->GetGuidValue(ITEM_FIELD_CREATOR).GetCounter());//GUID_LOPART(botitem->GetUInt64Value(ITEM_FIELD_CREATOR)));
             stmt->setUInt32(++index, botitem->GetGuidValue(ITEM_FIELD_GIFTCREATOR).GetCounter());//GUID_LOPART(botitem->GetUInt64Value(ITEM_FIELD_GIFTCREATOR)));
             stmt->setUInt32(++index, botitem->GetCount());
             stmt->setUInt32(++index, botitem->GetUInt32Value(ITEM_FIELD_DURATION));
@@ -7376,11 +7375,11 @@ void bot_minion_ai::CastBotItemCombatSpell(DamageInfo const& damageInfo)
 void bot_minion_ai::CastBotItemCombatSpell(DamageInfo const& damageInfo, Item* item, ItemTemplate const* proto)
 {
     //TODO: custom spell triggers maybe?
-	
+
     // Can do effect if any damage done to target
-	// for done procs allow normal + critical + absorbs by default
-	bool canTrigger = (damageInfo.GetHitMask() & (PROC_HIT_NORMAL | PROC_HIT_CRITICAL | PROC_HIT_ABSORB)) != 0;
-	if (canTrigger/*damageInfo.GetDamage() > 0*/) //if (procVictim & PROC_FLAG_TAKEN_DAMAGE)
+    // for done procs allow normal + critical + absorbs by default
+    bool canTrigger = (damageInfo.GetHitMask() & (PROC_HIT_NORMAL | PROC_HIT_CRITICAL | PROC_HIT_ABSORB)) != 0;
+    if (canTrigger/*damageInfo.GetDamage() > 0*/) //if (procVictim & PROC_FLAG_TAKEN_DAMAGE)
     {
         for (uint8 i = 0; i != MAX_ITEM_PROTO_SPELLS; ++i)
         {

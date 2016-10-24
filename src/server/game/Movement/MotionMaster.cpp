@@ -388,19 +388,19 @@ void MotionMaster::MoveJumpTo(float angle, float speedXY, float speedZ)
     float moveTimeHalf = speedZ / Movement::gravity;
     float dist = 2 * moveTimeHalf * speedXY;
     _owner->GetClosePoint(x, y, z, _owner->GetObjectSize(), dist, angle);
-	//npcbot
-	if (_owner->GetTypeId() == TYPEID_UNIT && _owner->ToCreature()->IsNPCBot())
-	{
-		Movement::MoveSplineInit init(_owner);
-		init.MoveTo(x, y, z);
-		init.SetParabolic(speedZ/*max_height*/, 0);
-		init.SetOrientationFixed(true);
-		init.SetVelocity(speedXY);
-		init.Launch();
-		Mutate(new EffectMovementGenerator(0), MOTION_SLOT_CONTROLLED);
-		return;
-	}
-	//end npcbot
+    //npcbot
+    if (_owner->GetTypeId() == TYPEID_UNIT && _owner->ToCreature()->IsNPCBot())
+    {
+        Movement::MoveSplineInit init(_owner);
+        init.MoveTo(x, y, z);
+        init.SetParabolic(speedZ/*max_height*/, 0);
+        init.SetOrientationFixed(true);
+        init.SetVelocity(speedXY);
+        init.Launch();
+        Mutate(new EffectMovementGenerator(0), MOTION_SLOT_CONTROLLED);
+        return;
+    }
+    //end npcbot
     MoveJump(x, y, z, 0.0f, speedXY, speedZ);
 }
 

@@ -1565,11 +1565,11 @@ void Unit::DealMeleeDamage(CalcDamageInfo* damageInfo, bool durabilityLoss)
         ToPlayer()->CastItemCombatSpell(dmgInfo);
     }
     //npcbot - CastItemCombatSpell for bots
-	else if (ToCreature()->GetBotAI()) {
-		//ToCreature()->CastCreatureItemCombatSpell(victim, damageInfo->attackType, damageInfo->procVictim, damageInfo->procEx);
-		DamageInfo dmgInfo(*damageInfo);
-		ToCreature()->CastCreatureItemCombatSpell(dmgInfo);
-	}
+    else if (ToCreature()->GetBotAI()) {
+        //ToCreature()->CastCreatureItemCombatSpell(victim, damageInfo->attackType, damageInfo->procVictim, damageInfo->procEx);
+        DamageInfo dmgInfo(*damageInfo);
+        ToCreature()->CastCreatureItemCombatSpell(dmgInfo);
+    }
     //end npcbot
 
     // Do effect if any damage done to target
@@ -2144,9 +2144,9 @@ void Unit::ExecuteDelayedSwingHit(bool extra)
     DealMeleeDamage(&_damageInfo, true);
 
     // Recursion warning here
-	//ProcDamageAndSpell(_damageInfo.target, _damageInfo.procAttacker, _damageInfo.procVictim, _damageInfo.procEx, _damageInfo.damage, _damageInfo.attackType);
-	DamageInfo dmgInfo(_damageInfo);
-	ProcSkillsAndAuras(_damageInfo.target, _damageInfo.procAttacker, _damageInfo.procVictim, PROC_SPELL_TYPE_NONE, PROC_SPELL_PHASE_NONE, dmgInfo.GetHitMask(), nullptr, &dmgInfo, nullptr);
+    //ProcDamageAndSpell(_damageInfo.target, _damageInfo.procAttacker, _damageInfo.procVictim, _damageInfo.procEx, _damageInfo.damage, _damageInfo.attackType);
+    DamageInfo dmgInfo(_damageInfo);
+    ProcSkillsAndAuras(_damageInfo.target, _damageInfo.procAttacker, _damageInfo.procVictim, PROC_SPELL_TYPE_NONE, PROC_SPELL_PHASE_NONE, dmgInfo.GetHitMask(), nullptr, &dmgInfo, nullptr);
 }
 //NpcBot mod
 void Unit::SuspendDelayedSwing()
@@ -3121,7 +3121,7 @@ float Unit::GetUnitCriticalChance(WeaponAttackType attackType, Unit const* victi
             {
                 if (!ToCreature()->CanCrit())
                     return 0.0f;
-				chance = 5.0f + ToCreature()->GetCreatureCritChance();
+                chance = 5.0f + ToCreature()->GetCreatureCritChance();
             }
             else
             //end npcbot

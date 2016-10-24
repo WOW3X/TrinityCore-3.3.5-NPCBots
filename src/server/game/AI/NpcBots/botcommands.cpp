@@ -47,7 +47,7 @@ public:
             { "delete",     GM_COMMANDS,                        false, &HandleNpcBotDeleteCommand,              ""/*, NULL*/ },
             { "lookup",     GM_COMMANDS,                        false, &HandleNpcBotLookupCommand,              ""/*, NULL*/ },
             { "revive",     GM_COMMANDS,                        false, &HandleNpcBotReviveCommand,              ""/*, NULL*/ },
-			{ "info",       GM_COMMANDS,                        false, &HandleNpcBotInfoCommand,                ""/*, NULL*/ },
+            { "info",       GM_COMMANDS,                        false, &HandleNpcBotInfoCommand,                ""/*, NULL*/ },
             { "cast",       GM_COMMANDS,                        false, &HandleNpcBotCastCustomSpell,            ""/*, NULL*/ },
         };
         static std::vector<ChatCommand> commandTable =
@@ -254,8 +254,8 @@ public:
         std::string characterName = characterName_str;
         uint32 guidlow = (uint32)atoi(characterName_str);
 
-		if (guidlow)
-			sObjectMgr->GetPlayerNameByGUID(ObjectGuid(HighGuid::Player, guidlow), characterName);//MAKE_NEW_GUID(guidlow, 0, HIGHGUID_PLAYER), characterName);
+        if (guidlow)
+            sObjectMgr->GetPlayerNameByGUID(ObjectGuid(HighGuid::Player, guidlow), characterName);//MAKE_NEW_GUID(guidlow, 0, HIGHGUID_PLAYER), characterName);
         else
             guidlow = sObjectMgr->GetPlayerGUIDByName(characterName);
 
@@ -412,9 +412,9 @@ public:
         stmt->setUInt32(0, id);
         CharacterDatabase.Execute(stmt);
 
-		//stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_ITEM_INSTANCE_BY_OWNER); // less: delete bot's equipments (aleady trasfered to owner?)
-		//stmt->setUInt32(0, bot->GetSpawnId());
-		//CharacterDatabase.Execute(stmt);
+        //stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_ITEM_INSTANCE_BY_OWNER); // less: delete bot's equipments (aleady trasfered to owner?)
+        //stmt->setUInt32(0, bot->GetSpawnId());
+        //CharacterDatabase.Execute(stmt);
 
         handler->SendSysMessage("Npcbot successfully deleted.");
         return true;
@@ -515,8 +515,8 @@ public:
         if (m_class == CLASS_PRIEST || m_class == CLASS_DRUID ||
             m_class == CLASS_SHAMAN || m_class == CLASS_PALADIN)
             roleMask |= BOT_ROLE_HEAL;
-
-		uint32 owner_faction = chr->getFaction(); // SET FACTION TO OWNER'S FACTION
+        
+        uint32 owner_faction = chr->getFaction(); // SET FACTION TO OWNER'S FACTION
 
         stmt = CharacterDatabase.GetPreparedStatement(CHAR_INS_NPCBOT); // "INSERT INTO characters_npcbot (entry, roles, faction) VALUES (?, ?, ?)", CONNECTION_SYNCH
         stmt->setUInt32(0, id);
@@ -524,14 +524,14 @@ public:
         stmt->setUInt32(2, owner_faction);
         CharacterDatabase.DirectExecute(stmt);
 
-		if (owner_faction != creature->getFaction())
-		{
-			creature->setFaction(owner_faction);
-			const_cast<CreatureTemplate*>(creature->GetCreatureTemplate())->faction = owner_faction;
-		}
+        if (owner_faction != creature->getFaction())
+        {
+            creature->setFaction(owner_faction);
+            const_cast<CreatureTemplate*>(creature->GetCreatureTemplate())->faction = owner_faction;
+        }
         creature->SaveToDB(map->GetId(), (1 << map->GetSpawnMode()), chr->GetPhaseMaskForSpawn());
 
-		uint32 db_guid = creature->GetSpawnId();//GetDBTableGUIDLow();
+        uint32 db_guid = creature->GetSpawnId();//GetDBTableGUIDLow();
         if (!creature->LoadBotCreatureFromDB(db_guid, map))
         {
             handler->SendSysMessage("Cannot load npcbot from DB!");
@@ -567,7 +567,7 @@ public:
 
  //       return true;
  //   }
-	//
+ //
  //   static bool HandleNpcBotSummonCommand(ChatHandler* handler, const char* args)
  //   {
  //       if (!*args)
@@ -661,7 +661,7 @@ public:
                 //    default:                        bclass = "wtf";                                 break;
                 //}
                 //handler->PSendSysMessage("%s (alive: %s)", bclass, (alivecount ? "yes" : "no"));
-				handler->PSendSysMessage("unknown: %u (alive: %u)", count, alivecount);
+                handler->PSendSysMessage("unknown: %u (alive: %u)", count, alivecount);
             }
             else
             {

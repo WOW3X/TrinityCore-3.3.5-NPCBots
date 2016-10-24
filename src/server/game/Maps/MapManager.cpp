@@ -116,15 +116,15 @@ void MapManager::Initialize()
         ASSERT(g.IsCoordValid() && "Invalid Grid coord!");
         Map* npcbotmap = sMapMgr->CreateBaseMap(mapId);
         npcbotmap->LoadGrid(pos_x, pos_y);
-		Map::CreatureBySpawnIdContainer::const_iterator itr = npcbotmap->GetCreatureBySpawnIdStore().find(tableGuid);
-		ASSERT(itr != npcbotmap->GetCreatureBySpawnIdStore().end());
-		if(!itr->second->IsAlive())
-		{
-			itr->second->Respawn();
-			itr->second->ResetBotAI(1);
-		}
-		/* Return NULL
-		Creature* bot = npcbotmap->GetCreature(ObjectGuid(HighGuid::Unit, entry, tableGuid)); //MAKE_NEW_GUID(tableGuid, entry, HIGHGUID_UNIT));
+        Map::CreatureBySpawnIdContainer::const_iterator itr = npcbotmap->GetCreatureBySpawnIdStore().find(tableGuid);
+        ASSERT(itr != npcbotmap->GetCreatureBySpawnIdStore().end());
+        if(!itr->second->IsAlive())
+        {
+            itr->second->Respawn();
+            itr->second->ResetBotAI(1);
+        }
+        /* Return NULL
+        Creature* bot = npcbotmap->GetCreature(ObjectGuid(HighGuid::Unit, entry, tableGuid)); //MAKE_NEW_GUID(tableGuid, entry, HIGHGUID_UNIT));
         ASSERT(bot);
         //debug
         if (!bot->IsAlive())

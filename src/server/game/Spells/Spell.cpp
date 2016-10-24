@@ -2446,10 +2446,10 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
                 caster->ToPlayer()->CastItemCombatSpell(spellDamageInfo);
 
             //npcbot - CastItemCombatSpell for bots
-			else if (caster->GetTypeId() == TYPEID_UNIT &&
-				caster->ToCreature()->GetBotAI() && !(m_spellInfo->Attributes & SPELL_ATTR0_STOP_ATTACK_TARGET) &&
-				(m_spellInfo->DmgClass == SPELL_DAMAGE_CLASS_MELEE || m_spellInfo->DmgClass == SPELL_DAMAGE_CLASS_RANGED))
-				caster->ToCreature()->CastCreatureItemCombatSpell(spellDamageInfo); //unitTarget, m_attackType, procVictim, procEx, this);
+            else if (caster->GetTypeId() == TYPEID_UNIT &&
+                caster->ToCreature()->GetBotAI() && !(m_spellInfo->Attributes & SPELL_ATTR0_STOP_ATTACK_TARGET) &&
+                (m_spellInfo->DmgClass == SPELL_DAMAGE_CLASS_MELEE || m_spellInfo->DmgClass == SPELL_DAMAGE_CLASS_RANGED))
+                caster->ToCreature()->CastCreatureItemCombatSpell(spellDamageInfo); //unitTarget, m_attackType, procVictim, procEx, this);
             //end npcbot
         }
 
