@@ -912,7 +912,7 @@ public:
         {
             uint8 level = master->getLevel();
 
-            RefreshAura(BORROWED_TIME, level >= 65 ? 1 : 0);
+            //RefreshAura(BORROWED_TIME, level >= 65 ? 1 : 0); // AuraEffect::HandleProcTriggerSpellAuraProc: Could not trigger spell 0 from aura 52800 proc
             RefreshAura(DIVINE_AEGIS, level >= 55 ? 1 : 0);
             RefreshAura(EMPOWERED_RENEW3, level >= 55 ? 1 : 0);
             RefreshAura(EMPOWERED_RENEW2, level >= 50 && level < 55 ? 1 : 0);

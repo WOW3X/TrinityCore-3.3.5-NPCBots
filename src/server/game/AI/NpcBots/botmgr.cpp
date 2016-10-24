@@ -183,7 +183,7 @@ void BotMgr::Update(uint32 diff)
             ai->SetReviveTimer(urand(1000, 5000));
         }
 
-        if (_owner->IsAlive() && bot->IsAlive() && !ai->IsTempBot() && !ai->IsDuringTeleport() &&
+        if (_owner->IsAlive() && !_owner->IsFlying() && bot->IsAlive() && !ai->IsTempBot() && !ai->IsDuringTeleport() &&
             (RestrictBots(bot, false) ||
             bot->GetMap() != _owner->GetMap() ||
             (bot->GetBotCommandState() != COMMAND_STAY && _owner->GetDistance(bot) > SIZE_OF_GRIDS)))
