@@ -7831,7 +7831,7 @@ void bot_ai::KillEvents(bool force)
 
 bool bot_ai::IsBotImmuneToSpell(SpellInfo const* spellInfo) const
 {
-    if (spellInfo->_IsPositiveSpell())
+    if (spellInfo->IsPositive())//_IsPositiveSpell())
         return false;
 
     if (_botclass >= BOT_CLASS_EX_START)

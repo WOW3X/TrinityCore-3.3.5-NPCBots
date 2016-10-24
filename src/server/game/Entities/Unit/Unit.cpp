@@ -2996,7 +2996,8 @@ float Unit::GetUnitParryChance(WeaponAttackType attType, Unit const* victim) con
     {
         if (!victim->IsTotem() && !(victim->ToCreature()->GetCreatureTemplate()->flags_extra & CREATURE_FLAG_EXTRA_NO_PARRY))
         {
-            //npcbot - custom parry chance instead of bunch of auras            if (GetTypeId() == TYPEID_UNIT && ToCreature()->GetBotAI())
+            //npcbot - custom parry chance instead of bunch of auras
+            if (GetTypeId() == TYPEID_UNIT && ToCreature()->GetBotAI())
             {
                 if (!ToCreature()->CanParry()) return 0.0f;
                 chance = ToCreature()->GetCreatureParryChance();
