@@ -244,7 +244,7 @@ public:
             float dist = me->GetExactDist(opponent);
             float meleedist = me->GetDistance(opponent);
 
-			//charge + warbringer
+            //charge + warbringer
             if (IsSpellReady(CHARGE_1, diff, false) && dist > 11 && dist < 25 && me->HasInArc(float(M_PI), opponent) &&
                 (me->getLevel() >= 50 ||
                 (!me->IsInCombat() && (battleStance || stanceChange(diff, 1)))))

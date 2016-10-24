@@ -620,12 +620,12 @@ public:
                 //only players for now
                 if (!aftercastTargetGuid.IsPlayer())//!IS_PLAYER_GUID(aftercastTargetGuid))
                 {
-					aftercastTargetGuid.Clear();// = 0;
+                    aftercastTargetGuid.Clear();// = 0;
                     return;
                 }
 
                 Player* pTarget = ObjectAccessor::FindPlayer(aftercastTargetGuid);
-				aftercastTargetGuid.Clear();// = 0;
+                aftercastTargetGuid.Clear();// = 0;
 
                 if (!pTarget/* || me->GetDistance(pTarget) > 15*/)
                     return;

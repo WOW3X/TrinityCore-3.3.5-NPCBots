@@ -241,7 +241,7 @@ public:
             if (ASPECT_OF_THE_VIPER && pct < 25)
                 needaspect = ASPECT_OF_THE_VIPER;
             /* less: annoying
-			else if (ASPECT_OF_THE_PACK && (pct > 70 || !Aspect))
+            else if (ASPECT_OF_THE_PACK && (pct > 70 || !Aspect))
                 needaspect = ASPECT_OF_THE_PACK;*/
 
             if (!needaspect || (needaspect == Aspect && HasAuraName(me, needaspect)))

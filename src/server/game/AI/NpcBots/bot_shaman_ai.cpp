@@ -924,8 +924,8 @@ public:
                     TC_LOG_ERROR("entities.player", "SummonedCreatureDespawn(): Shaman bot %s has despawned totem %s with unknown type %u", me->GetName().c_str(), summon->GetName().c_str(), totem->m_Properties->Id);
                     return;
             }
-
-			_totems[slot].first.Clear(); // = 0;
+            
+            _totems[slot].first.Clear(); // = 0;
         }
 
         void OnBotSummon(Creature* summon)

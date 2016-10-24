@@ -394,7 +394,7 @@ public:
         void Aggro(Unit*) { }
         void AttackStart(Unit*) { }
         void KilledUnit(Unit*) { }
-		void EnterEvadeMode(EvadeReason why = EVADE_REASON_OTHER) override { }
+        void EnterEvadeMode(EvadeReason why = EVADE_REASON_OTHER) override { }
         void MoveInLineOfSight(Unit*) { }
         void JustDied(Unit*) { m_creatureOwner->SetBotsPetDied(); }
         void DoNonCombatActions() { }
