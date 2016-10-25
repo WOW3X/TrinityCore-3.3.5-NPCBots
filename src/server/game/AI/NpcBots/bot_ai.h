@@ -680,7 +680,6 @@ class bot_ai : public ScriptedAI
 
     private:
         Unit* _getTarget(bool byspell, bool ranged, bool &reset) const;
-        bool _hasAuraName(Unit* unit, const std::string spell, uint64 casterGuid = 0, bool exclude = false) const;
         void _listAuras(Player* player, Unit* unit) const;
         static inline float _getAttackDistance(float distance) { return distance > 0.0f ? distance*0.72f : 0.0f; }
 

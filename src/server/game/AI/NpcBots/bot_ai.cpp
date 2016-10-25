@@ -981,7 +981,25 @@ void bot_minion_ai::_getBotDispellableAuraList(Unit* target, Unit* caster, uint3
     }
 }
 //protected
-bool bot_ai::HasAuraName(Unit* unit, uint32 spellId, uint64 casterGuid, bool exclude) const
+static bool _hasAuraName(Unit* unit, SpellInfo const* spell, uint64 casterGuid, bool exclude/*, bool leRank*/)
+{
+    ASSERT(unit);
+
+    Unit::AuraMap const& vAuras = unit->GetOwnedAuras();
+    SpellInfo const* spellInfo;
+    //SpellInfo const* spellFirstRank = spell->GetFirstRankSpell();
+    //uint8 rank = spell->GetRank();
+    for (Unit::AuraMap::const_iterator itr = vAuras.begin(); itr != vAuras.end(); ++itr)
+    {
+        spellInfo = itr->second->GetSpellInfo();
+        if ((spellInfo->GetFirstRankSpell() == spell) &&/* (!leRank || spellInfo->GetRank() <= rank) &&*/
+            (casterGuid == 0 || (exclude == (casterGuid != itr->second->GetCasterGUID()))))
+                return true;
+    }
+
+    return false;
+}
+bool bot_ai::HasAuraName(Unit* unit, uint32 spellId, uint64 casterGuid/* = 0*/, bool exclude/* = false*//*, bool leRank = false*/) const
 {
     ASSERT(spellId);
 
@@ -992,34 +1010,9 @@ bool bot_ai::HasAuraName(Unit* unit, uint32 spellId, uint64 casterGuid, bool exc
         ASSERT(false);
     }
 
-    uint8 loc = IAmFree() ? sWorld->GetDefaultDbcLocale() : master->GetSession()->GetSessionDbcLocale();
-    std::string const name = spellInfo->SpellName[loc];
-
-    return _hasAuraName(unit, name, casterGuid, exclude);
+    return _hasAuraName(unit, spellInfo->GetFirstRankSpell(), casterGuid, exclude/*, leRank*/);
 }
 //private
-bool bot_ai::_hasAuraName(Unit* unit, std::string const spell, uint64 casterGuid, bool exclude) const
-{
-    ASSERT(unit);
-    ASSERT(spell.length() != 0);
-
-    uint8 loc = IAmFree() ? sWorld->GetDefaultDbcLocale() : master->GetSession()->GetSessionDbcLocale();
-
-    Unit::AuraMap const& vAuras = unit->GetOwnedAuras();
-    SpellInfo const* spellInfo;
-    std::string name;
-
-    for (Unit::AuraMap::const_iterator itr = vAuras.begin(); itr != vAuras.end(); ++itr)
-    {
-        spellInfo = itr->second->GetSpellInfo();
-        name = spellInfo->SpellName[loc];
-        if (spell == name)
-            if (casterGuid == 0 || (exclude == (casterGuid != itr->second->GetCasterGUID())))
-                return true;
-    }
-
-    return false;
-}
 //LIST AURAS
 // Debug: Returns bot's info to called player
 void bot_ai::_listAuras(Player* player, Unit* unit) const

@@ -1134,9 +1134,13 @@ public:
             }
 
             if (handler->GetSession())
-                reply << "  |cffffffff|Htele:" << itr->first << "|h[" << tele->name << "]|h|r\n";
+            {
+                reply << "  |cffffffff|Htele:" << itr->first << "|h[" << tele->name << "]|h|r (mxyz:"
+                    << tele->mapId << ',' << tele->position_x << ',' << tele->position_y << ',' << tele->position_z << ")\n";
+            }
             else
-                reply << "  " << itr->first << ' ' << tele->name << "\n";
+                reply << "  " << itr->first << ' ' << tele->name << " (mxyz:"
+                << tele->mapId << ',' << tele->position_x << ',' << tele->position_y << ',' << tele->position_z << ")\n";
         }
 
         if (reply.str().empty())
