@@ -23,6 +23,10 @@
 #include "Spell.h"
 #include "World.h"
 #include "Opcodes.h"
+//npcbot
+#include "Creature.h"
+#include "bot_ai.h"
+//end npcbot
 
 SpellHistory::Clock::duration const SpellHistory::InfinityCooldownDelay = std::chrono::duration_cast<SpellHistory::Clock::duration>(std::chrono::seconds(MONTH));
 SpellHistory::Clock::duration const SpellHistory::InfinityCooldownDelayCheck = std::chrono::duration_cast<SpellHistory::Clock::duration>(std::chrono::seconds(MONTH / 2));
@@ -467,6 +471,12 @@ void SpellHistory::ResetAllCooldowns()
 
 bool SpellHistory::HasCooldown(SpellInfo const* spellInfo, uint32 itemId /*= 0*/, bool ignoreCategoryCooldown /*= false*/) const
 {
+    //npcbot - get spell cooldown from botAI
+    if (Creature *cre = this->_owner->ToCreature())
+        if (cre->GetBotAI() && cre->GetBotAI()->IsSpellReady(spellInfo->GetFirstRankSpell()->Id, cre->GetBotAI()->GetLastDiff(), false))
+            return false;
+    //end npcbot
+
     if (_spellCooldowns.count(spellInfo->Id) != 0)
         return true;
 

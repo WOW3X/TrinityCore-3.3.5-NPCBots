@@ -2965,6 +2965,13 @@ float Unit::GetUnitDodgeChance(WeaponAttackType attType, Unit const* victim) con
     // Reduce dodge chance by attacker expertise rating
     if (GetTypeId() == TYPEID_PLAYER)
         chance -= ToPlayer()->GetExpertiseDodgeOrParryReduction(attType);
+    //npcbot - manual expertise instead of auras
+    else if (GetTypeId() == TYPEID_UNIT && ToCreature()->GetBotAI())
+    {
+        chance -= ToCreature()->GetCreatureExpertise() / 4.0f;
+        chance -= GetTotalAuraModifier(SPELL_AURA_MOD_EXPERTISE) / 4.0f;
+    }
+    //end npcbot
     else
         chance -= GetTotalAuraModifier(SPELL_AURA_MOD_EXPERTISE) / 4.0f;
     return std::max(chance, 0.0f);
@@ -3019,6 +3026,13 @@ float Unit::GetUnitParryChance(WeaponAttackType attType, Unit const* victim) con
     // Reduce parry chance by attacker expertise rating
     if (GetTypeId() == TYPEID_PLAYER)
         chance -= ToPlayer()->GetExpertiseDodgeOrParryReduction(attType);
+    //npcbot - manual expertise instead of auras
+    else if (GetTypeId() == TYPEID_UNIT && ToCreature()->GetBotAI())
+    {
+        chance -= ToCreature()->GetCreatureExpertise() / 4.0f;
+        chance -= GetTotalAuraModifier(SPELL_AURA_MOD_EXPERTISE) / 4.0f;
+    }
+    //end npcbot
     else
         chance -= GetTotalAuraModifier(SPELL_AURA_MOD_EXPERTISE) / 4.0f;
     return std::max(chance, 0.0f);
