@@ -391,6 +391,8 @@ void MotionMaster::MoveJumpTo(float angle, float speedXY, float speedZ)
     //npcbot
     if (_owner->GetTypeId() == TYPEID_UNIT && _owner->ToCreature()->IsNPCBot())
     {
+        if (speedXY <= 0.1f)
+            return;
         Movement::MoveSplineInit init(_owner);
         init.MoveTo(x, y, z);
         init.SetParabolic(speedZ/*max_height*/, 0);

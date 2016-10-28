@@ -1026,7 +1026,7 @@ bool WorldObject::IsWorldObject() const
     if (m_isWorldObject)
         return true;
 
-    if (ToCreature() && ToCreature()->m_isTempWorldObject)
+    if (GetTypeId() == TYPEID_UNIT && ToCreature()->m_isTempWorldObject)
         return true;
 
     return false;
@@ -1040,10 +1040,10 @@ void WorldObject::setActive(bool on)
     if (GetTypeId() == TYPEID_PLAYER)
         return;
 
-    //bot
+    //npcbot
     if (on == false && GetTypeId() == TYPEID_UNIT && ToCreature()->IsNPCBot())
         return;
-    //end bot
+    //end npcbot
 
     m_isActive = on;
 

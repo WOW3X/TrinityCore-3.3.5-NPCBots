@@ -958,8 +958,7 @@ public:
             InitSpellMap(FEIGN_DEATH_1);
             InitSpellMap(DETERRENCE_1);
             InitSpellMap(ASPECT_OF_THE_VIPER_1);
-  /*Custom*///ASPECT_OF_THE_PACK                      = ASPECT_OF_THE_VIPER ? ASPECT_OF_THE_PACK_1 : 0;
-  /*Custom*/lvl >= 20 ? InitSpellMap(ASPECT_OF_THE_PACK_1, true) : RemoveSpell(ASPECT_OF_THE_PACK_1);
+  /*Custom*/lvl >= 40 ? InitSpellMap(ASPECT_OF_THE_PACK_1, true) : RemoveSpell(ASPECT_OF_THE_PACK_1);
             //InitSpellMap(ASPECT_OF_THE_DRAGONHAWK_1);
         }
 
