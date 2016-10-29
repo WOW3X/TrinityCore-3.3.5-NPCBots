@@ -447,7 +447,7 @@ void Unit::Update(uint32 p_time)
         }
     }
     //npcbot: update combat timer also for npcbots
-    if (IsInCombat() && GetTypeId() == TYPEID_UNIT && ToCreature()->GetBotAI()/* && (!GetVictim() || ToCreature()->IsFreeBot())*/)
+    if (IsInCombat() && GetTypeId() == TYPEID_UNIT && ToCreature()->GetBotAI())
     {
         if (m_HostileRefManager.isEmpty())
         {
@@ -1494,9 +1494,6 @@ void Unit::DealMeleeDamage(CalcDamageInfo* damageInfo, bool durabilityLoss)
 
     if (damageInfo->TargetState == VICTIMSTATE_PARRY &&
         (GetTypeId() != TYPEID_UNIT || (ToCreature()->GetCreatureTemplate()->flags_extra & CREATURE_FLAG_EXTRA_NO_PARRY_HASTEN) == 0))
-    //npcbot - implement CREATURE_FLAG_EXTRA_NO_PARRY_HASTEN (TC sup)
-    if (!(GetTypeId() == TYPEID_UNIT && ToCreature()->GetCreatureTemplate()->flags_extra & CREATURE_FLAG_EXTRA_NO_PARRY_HASTEN))
-    //end npcbot
     {
         // Get attack timers
         float offtime  = float(victim->getAttackTimer(OFF_ATTACK));
@@ -2342,6 +2339,10 @@ MeleeHitOutcome Unit::RollMeleeOutcomeAgainst(Unit const* victim, WeaponAttackTy
         canDodge = false;
         canParryOrBlock = false;
     }
+    //npcbot - bots cannot dodge if attacker is behind
+    else if (victim->GetTypeId() == TYPEID_UNIT && victim->ToCreature()->GetBotAI() && !canParryOrBlock)
+        canDodge = false;
+    //end npcbot
 
     // 1. MISS
     tmp = miss_chance;
